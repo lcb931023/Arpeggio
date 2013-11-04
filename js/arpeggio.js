@@ -7,7 +7,7 @@ var scaleBase = [];
 function initialize() {
 
   // set up scale base
-  setScaleBase(majorPentatonicScale);
+  setScaleBase(japaneseScale);
   
   // Write note data to screen
   if(noteNames.length === noteFreqs.length) { // Array lengths should match
@@ -41,6 +41,7 @@ var frequency = 440;
 var audio = [];
 var oscillator = [];
 var gainNode = [];
+
 for(var i = 0; i < 4; i++) {
   audio[i] = new webkitAudioContext();
 
@@ -73,7 +74,6 @@ Leap.loop(function(frame) {
     document.getElementById("controller_two").style.visibility = "hidden";
     return;
   }
-  //console.log(frame);
   // Declare variables
   var freq = [];
   var vol = [];
@@ -94,21 +94,26 @@ Leap.loop(function(frame) {
   
   // Modify the sound based on leap coordinates
   freq[0] = Math.abs(y[0]*4 - 150);
-  vol[0] = Math.abs(2 - z[0]*0.01);
+  vol[0] = (2 - z[0]*0.01); if (vol[0] < 0) vol[0] = 0;
   if(frame.hands.length === 1) {
     freq[1] = 0;
     vol[1] = 0;
   } else {
     freq[1] = Math.abs(y[1]*4 - 150);
-    vol[1] = Math.abs(2 - z[1]*0.01);
+    vol[1] = (2 - z[1]*0.01); if (vol[1] < 0) vol[1] = 0;
   }
 
   // Output the sound to the oscillator and gainnode
+  /*** Mode one: Harp (Incomplete) ***/ 
+  _playOscillator(oscillator[0], freq[0], vol[0], gainNode[0]);
+  _playOscillator(oscillator[1], freq[1], vol[1], gainNode[1]);
+  /*** Mode two: Theremin ***/
+  /*
   oscillator[0].frequency.value = mapFreqToNote(freq[0]);
   gainNode[0].gain.value = vol[0];
   oscillator[1].frequency.value = mapFreqToNote(freq[1]);
   gainNode[1].gain.value = vol[1];
-  
+  */
   // Update HTML elements w/ frequency/gain data
   document.getElementById("frequency_one").textContent = String(Math.floor(oscillator[0].frequency.value));// String(Math.floor(freq[0]));
   document.getElementById("volume_one").textContent = String(Math.floor(vol[0]*25));
@@ -127,3 +132,41 @@ Leap.loop(function(frame) {
   document.getElementById("controller_two").style.top = String(100*(1-((freq[1] - noteFreqs[0])/(noteFreqs[noteFreqs.length-1] - noteFreqs[0])))) + "%";
   document.getElementById("controller_two").style.left = String(100 - Math.abs(2 - x[1]*0.01)*25) + "%";
 });
+
+function _playOscillator( inOsc, inFreq, inVol, inGain ) { // need refactoring
+  // if different frequency, play it
+  var newFreq = mapFreqToNote(inFreq);
+  if (Math.floor(inOsc.frequency.value) != Math.floor(newFreq)) // hacking around floating point
+  {
+    console.log(inOsc.frequency.value);
+    console.log("Play Frequency: " + newFreq);
+    inOsc.frequency.value = newFreq;
+    inGain.gain.value = inVol;
+   // _tweenOut(inGain.gain.value);
+    var initial = inGain.gain.value;
+    var releaser = setInterval( function() {
+      inGain.gain.value -= initial * 30/1000;
+      if (inGain.gain.value <= 0)
+      {
+        inGain.gain.value = 0;
+        clearInterval(releaser);
+      }
+      console.log("gainNode[0].gain.value: " + gainNode[0].gain.value);
+      console.log("inGain.gain.value: " + inGain.gain.value);
+    }, 30 );
+  } 
+}
+
+// Tween the number to zero.
+function _tweenOut(inNumber) {
+  var initial = inNumber;
+  var releaser = setInterval( function() {
+    inNumber -= initial * 10/1000;
+    if (inNumber <= 0)
+    {
+      clearInterval(releaser);
+    }
+    console.log("gainNode[0].gain.value: " + gainNode[0].gain.value);
+    console.log("inNumber: " + inNumber);
+  }, 30 );
+}
