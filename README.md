@@ -1,7 +1,6 @@
-Theremin
+Arpeggio
 ========
-
-A simple theremin app for the Leap Motion.  Supports up to two hands for hours and hours of fun!
-
+A Leap Motion electronic music toy. based on Mr.http://yujiangtham.com/'s Theremin.
+========
 @Original Author: http://yujiangtham.com/
 @Downloaded, dissected and modified by: Changbai Li
