@@ -2,7 +2,7 @@
 // It's only used for display purpose, and uses some interesting calculation blablablabla things I don't need to care.
 // BUTT! This should be very easy to research.
 
-// http://www.phy.mtu.edu/~suits/noteFreqs.html
+// http://www.phy.mtu.edu/~suits/notefreqs.html
 // Table of frequency.
 // each octave of a single note has doubled frequency
 // I can have ranges of octave (of how many times it gets timed) (get it, times timed, hehehe)
