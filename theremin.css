@@ -9,15 +9,20 @@ body {
 }
 
 #title {
-  display: inline-block;
-  position: absolute;
-  margin: 0px auto;
-  width: 100%;
-  top: 0px;
   font-size: 3em;
   text-align: center;
   color: #ffffff;
-  z-index: 10;
+}
+
+.scale-control {
+    display: flex;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.scale-control span {
+    padding-left: .5em;
+    padding-right: 2em;
 }
 
 .floating {
@@ -67,7 +72,6 @@ body {
   padding: 5px;
 }
 
-
 #controller_one {
   display: inline-block;
   position: absolute;
@@ -92,4 +96,8 @@ body {
   z-index: 50;
   margin-left: -5px;
   margin-top: -5px;
+}
+
+.hidden {
+    display: none;
 }

@@ -23,28 +23,28 @@ var basenoteFreqs = [
 29.14, // Bb
 30.87  // B
 ];
-var naturalMajorScale = [ 0, 2, 4, 5, 7, 9, 11 ];
-var naturalMinorScale = [ 0, 2, 3, 5, 7, 8, 10 ]; // this will just sound the same as major - for now
-// Here's where I get overly obsessive when it's 7:38 in the morning and I prefer coding like a monkey than writing logics
-var harmonicMinorScale = [ 0, 2, 3, 5, 7, 8, 11 ];
-var majorPentatonicScale = [ 0, 2, 4, 7, 9 ];
-var minorPentatonicScale = [ 0, 3, 5, 7, 10 ]; // see natural Minor Scale's comment
-// oh come on now, at this point I'm just showing off.
-var jazzMinorScale = [ 0, 2, 3, 5, 7, 9, 11 ]; // I actually just found that one on Wikipedia
-var bluesMinorScale = [ 0, 3, 5, 6, 7, 10 ];
-var flamencoScale = [ 0, 1, 4, 5, 7, 8, 11 ];
-var whoneToneScale = [ 0, 2, 4, 6, 8, 10 ];
-var japaneseScale = [ 0, 2, 3, 7, 8]; // wow, now that I look at it, this is super sketchy
-// Alright, I admit the rest are just scales on Wikipedia
-var algerianScale = [ 0, 2, 3, 5, 6, 7, 10 ];
-var enigmaticScale = [ 0, 1, 4, 6, 8, 9, 11 ]; // Joe Satriani, The Enigmatic
-var japaneseYoScale = [ 0, 3, 5, 7, 11 ];
-var tritoneScale = [ 0, 1, 4, 6, 7, 10 ]; // It's the devil!
-var gypsyScale = [ 0, 2, 3, 6, 7, 8, 10 ];
+
+var Scales = {
+	"Natural"	: [ 0, 2, 4, 5, 7, 9, 11 ],
+	"Harmonic"	: [ 0, 2, 3, 5, 7, 8, 11 ],
+	"Pentatonic": [ 0, 2, 4, 7, 9],
+	"Jazz"		: [ 0, 2, 3, 5, 7, 9, 11 ],
+	"Blues"		: [ 0, 3, 5, 6, 7, 10 ],
+	"Flamenco"	: [ 0, 1, 4, 5, 7, 8, 11 ],
+	"Japanese"	: [ 0, 2, 3, 7, 8],
+	"JapaneseYo": [ 0, 3, 5, 7, 11 ],
+	"Algerian"	: [ 0, 2, 3, 5, 6, 7, 10 ],
+	"WholeTone"	: [ 0, 2, 4, 6, 8, 10 ],
+	"Enigmatic"	: [ 0, 1, 4, 6, 8, 9, 11 ],
+	"Tritone"	: [ 0, 1, 4, 6, 7, 10 ],
+	"Gypsy"		: [ 0, 2, 3, 6, 7, 8, 10 ]
+}
 
 var curOctave = 0; // for displaying octave
 
-function setScaleBase(inScale) {
+function setScaleBase( inScaleKey ) {
+	var inScale = Scales[inScaleKey];
+	scaleBase = [];
 	for (var i = 0; i < inScale.length; i++) {
 		scaleBase.push(basenoteFreqs[inScale[i]]);
 	};

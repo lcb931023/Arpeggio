@@ -1,28 +1,49 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Arpeggio</title>
-  <link rel="stylesheet" type="text/css" href="theremin.css">
-  <link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
+    <title>Arpeggio</title>
+    <link rel="stylesheet" type="text/css" href="theremin.css">
+    <link href='http://fonts.googleapis.com/css?family=Metrophobic' rel='stylesheet' type='text/css'>
 <script src="assets/leap.js"></script>
 <script src="js/scaleManager.js" type="text/javascript"></script>
 <script src="js/arpeggio.js" type="text/javascript"></script>
 </head>
 <body onload="initialize();">
 <a href="https://github.com/lcb931023"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-  <div id="title">Leap Arpeggio! Based on <a href="http://yujiangtham.com/leap/theremin/">Leap Theremin</a></div>
-  <div id="data1">
+    <div class="top-content">
+        <div id="title">Leap Arpeggio! Based on <a href="https://github.com/ytham/theremin">Leap Theremin</a></div>
+        <div class="scale-control">
+            <select class="scale" name="scale">
+                <option value="Natural">Natural</option>
+                <option value="Harmonic">Harmonic</option>
+                <option value="Pentatonic">Pentatonic</option>
+                <option value="Jazz">Jazz</option>
+                <option value="Blues">Blues</option>
+                <option value="Flamenco">Flamenco</option>
+                <option value="Japanese">Japanese</option>
+                <option value="JapaneseYo">Japanese Yo</option>
+                <option value="Algerian">Algerian</option>
+                <option value="WholeTone">WholeTone</option>
+                <option value="Enigmatic">Enigmatic</option>
+                <option value="Tritone">Tritone</option>
+                <option value="Gypsy">Gypsy</option>
+            </select>
+            <span>Scale</span>
+            <button name="bass">DROP THE BASS</button>
+            <button name="resetBass" class="hidden">I TAKE IT BACK</button>
+        </div>
+    </div>
+    <div id="data1">
     <b>Hand 1</b><br>
     Frequency: <span id="frequency_one">0</span><br>
     Volume: <span id="volume_one">0</span>
-  </div>
-  <div id="data2">
+    </div>
+    <div id="data2">
     <b>Hand 2</b><br>
     Frequency: <span id="frequency_two">0</span><br>
     Volume: <span id="volume_two">0</span>
-  </div>
-  <div id="controller_one"></div>
-  <div id="controller_two"></div>
+    </div>
+    <div id="controller_one"></div>
+    <div id="controller_two"></div>
 </body>
 </html>
